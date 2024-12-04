@@ -11,7 +11,7 @@ namespace CoreLibrary.Services
     {
         public List<string> MatchOrders(List<CryptoExchange> cryptoExchanges, List<OrderBook> orderBooks, bool orderType, decimal targetAmount)
         {
-            List<string> finalOrders = new List<string>();
+            List<string> finalOrders = [];
             decimal remainingAmount = targetAmount;
             decimal totalPrice = 0;
 
@@ -47,12 +47,37 @@ namespace CoreLibrary.Services
             }
             else if (orderType == false) //Sell
             {
+                var sortedBids = orderBooks
+                .SelectMany(book => book.Asks.Select(a => (Exchange: book.AcqTime, a.Order)))
+                .OrderByDescending(x => x.Order.Price)
+                .ToList();
 
+                foreach (var bid in sortedBids)
+                {
+                    if (remainingAmount == 0)
+                    {
+                        finalOrders.Add($"Total for {targetAmount} BTC is: {totalPrice} EUR");
+                        break;
+                    }
+
+                    CryptoExchange exchangeBalance = cryptoExchanges.First(b => b.Id == bid.Exchange);
+
+                    decimal amountToSell = Math.Min(Math.Min(exchangeBalance.BTCBalance, bid.Order.Amount), remainingAmount);
+
+                    if (amountToSell > 0)
+                    {
+                        finalOrders.Add($"Sell {amountToSell} BTC at {bid.Order.Price} EUR from {bid.Exchange}");
+
+                        exchangeBalance.BTCBalance -= amountToSell;
+                        totalPrice += amountToSell * bid.Order.Price;
+                        remainingAmount -= amountToSell;
+                    }
+                }
             }
 
             if (remainingAmount > 0)
             {
-
+                finalOrders.Add($"Crypto exchange balance too low for remaining {remainingAmount} BTC");
             }
 
             return finalOrders;
