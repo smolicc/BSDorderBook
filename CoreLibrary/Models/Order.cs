@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSDorderBook.Models
+namespace CoreLibrary.Models
 {
-    internal class Order
+    public class Order
     {
         public int? Id { get; set; }
         public DateTime Time { get; set; }

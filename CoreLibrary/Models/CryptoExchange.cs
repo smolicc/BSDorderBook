@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSDorderBook.Models
+namespace CoreLibrary.Models
 {
-    internal class CryptoExchange
+    public class CryptoExchange
     {
         public string Id { get; set; }
         public decimal EURBalance { get; set; }

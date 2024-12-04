@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSDorderBook.Models
+namespace CoreLibrary.Models
 {
-    internal class Bid
+    public class Bid
     {
         public Order Order { get; set; }
     }

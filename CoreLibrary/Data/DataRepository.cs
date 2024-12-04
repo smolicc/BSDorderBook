@@ -1,4 +1,4 @@
-﻿using BSDorderBook.Models;
+﻿using CoreLibrary.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSDorderBook.Data
+namespace CoreLibrary.Data
 {
-    internal class DataRepository
+    public class DataRepository
     {
         private readonly string filePathCE;
         private readonly string filePathOB;

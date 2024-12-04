@@ -1,13 +1,14 @@
-﻿using System;
+﻿using CoreLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSDorderBook.Models
+namespace CoreLibrary.Services
 {
-    internal class Ask
+    public interface IMatchOrdersService
     {
-        public Order Order { get; set; }
+
     }
 }

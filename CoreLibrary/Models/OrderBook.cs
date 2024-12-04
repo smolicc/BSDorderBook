@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSDorderBook.Models
+namespace CoreLibrary.Models
 {
-    internal class OrderBook
+    public class OrderBook
     {
         public string AcqTime { get; set; }
         public List<Bid> Bids { get; set; }

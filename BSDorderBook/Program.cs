@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using BSDorderBook.Data;
+using CoreLibrary.Data;
+using CoreLibrary.Services;
+using CoreLibrary.Models;
 using System;
 
 namespace BSDorderBook
