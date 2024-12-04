@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BSDorderBook": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
