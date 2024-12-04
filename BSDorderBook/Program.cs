@@ -14,6 +14,14 @@ namespace BSDorderBook
 
             var dr = new DataRepository("CryptoExchangesData.json", "OrderBooksData.json");
 
+            IMatchOrdersService moService = new MatchOrdersService();
+
+            List<string> response = moService.MatchOrders(dr.LoadCryptoExchanges(), dr.LoadOrderBooks(), true, 2);
+
+            foreach (string responseItem in response)
+            {
+                Console.WriteLine(responseItem);
+            }
         }
     }
 }
