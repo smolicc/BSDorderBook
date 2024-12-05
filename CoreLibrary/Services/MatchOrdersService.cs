@@ -13,7 +13,7 @@ namespace CoreLibrary.Services
         public Result MatchOrders(bool orderType, decimal targetAmount)
         {
             Result result = new Result();
-            result.SortedOrders = new List<SortedOrder>();
+            result.BestExecutionPlan = new List<SortedOrder>();
             decimal remainingAmount = targetAmount;
             decimal totalPrice = 0;
 
@@ -55,7 +55,7 @@ namespace CoreLibrary.Services
                         so.Order = ask.Order;
 
                         so.Order.Amount = amountToBuy;
-                        result.SortedOrders.Add(so);
+                        result.BestExecutionPlan.Add(so);
                         //finalOrders.Add($"Buy {amountToBuy} BTC at {ask.Order.Price} EUR from {ask.Exchange}");
                         
                         exchangeBalance.EURBalance -= amountToBuy * ask.Order.Price;
@@ -95,7 +95,7 @@ namespace CoreLibrary.Services
                         so.Order = bid.Order;
 
                         so.Order.Amount = amountToSell;
-                        result.SortedOrders.Add(so);
+                        result.BestExecutionPlan.Add(so);
                         //finalOrders.Add($"Sell {amountToSell} BTC at {bid.Order.Price} EUR from {bid.Exchange}");
 
                         exchangeBalance.BTCBalance -= amountToSell;

@@ -8,7 +8,7 @@ namespace CoreLibrary.Models
 {
     public class Result
     {
-        public List<SortedOrder> SortedOrders { get; set; }
+        public List<SortedOrder> BestExecutionPlan { get; set; }
 
         public string FinalResponse { get; set; }
     }

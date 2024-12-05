@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLibrary", "CoreLibrary\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBookAPI", "OrderBookAPI\OrderBookAPI.csproj", "{BEBB98E5-25A9-40A7-913A-D968AE970FE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchOrdersServiceTests", "MatchOrdersServiceTests\MatchOrdersServiceTests.csproj", "{019903CF-446B-4130-8399-6BD1748B3389}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BEBB98E5-25A9-40A7-913A-D968AE970FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEBB98E5-25A9-40A7-913A-D968AE970FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEBB98E5-25A9-40A7-913A-D968AE970FE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019903CF-446B-4130-8399-6BD1748B3389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019903CF-446B-4130-8399-6BD1748B3389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019903CF-446B-4130-8399-6BD1748B3389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019903CF-446B-4130-8399-6BD1748B3389}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

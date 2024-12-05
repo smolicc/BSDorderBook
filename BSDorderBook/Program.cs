@@ -9,7 +9,7 @@ Console.WriteLine("Hello World!");
 
 Result response = new MatchOrdersService().MatchOrders(true, 2);
 
-foreach (SortedOrder result in response.SortedOrders)
+foreach (SortedOrder result in response.BestExecutionPlan)
 {
     Console.WriteLine(result.Order.Amount + " BTC at " + result.Order.Price + " EUR from " + result.Exchange);
 }
