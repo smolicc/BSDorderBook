@@ -13,20 +13,20 @@ namespace OrderBookAPI.Controllers
         [HttpPost("buy/{amount}")]
         public IActionResult BuyOrder(decimal amount)
         {
-            List<string> response = new MatchOrdersService().MatchOrders(true, amount);
+            Result response = new MatchOrdersService().MatchOrders(true, amount);
 
             //Temp response
-            return Ok(response[1]);
+            return Ok(response);
         }
 
         [HttpPost("sell/{amount}")]
         public IActionResult SellOrder(decimal amount)
         {
-            List<string> response = new MatchOrdersService().MatchOrders(false, amount);
+            Result response = new MatchOrdersService().MatchOrders(false, amount);
 
 
             //Temp response
-            return Ok(response[1]);
+            return Ok(response);
         }
     }
 }

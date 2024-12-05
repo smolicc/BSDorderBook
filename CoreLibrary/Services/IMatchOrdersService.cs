@@ -9,6 +9,6 @@ namespace CoreLibrary.Services
 {
     public interface IMatchOrdersService
     {
-        List<string> MatchOrders(bool orderType, decimal targetAmount);
+        Result MatchOrders(bool orderType, decimal targetAmount);
     }
 }

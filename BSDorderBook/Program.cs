@@ -7,9 +7,10 @@ using System;
 
 Console.WriteLine("Hello World!");
 
-List<string> response = new MatchOrdersService().MatchOrders(false, 3);
+Result response = new MatchOrdersService().MatchOrders(true, 2);
 
-foreach (string responseItem in response)
+foreach (SortedOrder result in response.SortedOrders)
 {
-    Console.WriteLine(responseItem);
+    Console.WriteLine(result.Order.Amount + " BTC at " + result.Order.Price + " EUR from " + result.Exchange);
 }
+Console.WriteLine(response.FinalResponse);
