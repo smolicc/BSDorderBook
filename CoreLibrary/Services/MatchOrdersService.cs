@@ -1,4 +1,5 @@
-﻿using CoreLibrary.Models;
+﻿using CoreLibrary.Data;
+using CoreLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,17 @@ namespace CoreLibrary.Services
 {
     public class MatchOrdersService : IMatchOrdersService
     {
-        public List<string> MatchOrders(List<CryptoExchange> cryptoExchanges, List<OrderBook> orderBooks, bool orderType, decimal targetAmount)
+        public List<string> MatchOrders(bool orderType, decimal targetAmount)
         {
             List<string> finalOrders = [];
             decimal remainingAmount = targetAmount;
             decimal totalPrice = 0;
+
+            DataRepository dr = new DataRepository("CryptoExchangesData.json", "OrderBooksData.json");
+
+            List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
+            List<OrderBook> orderBooks = dr.LoadOrderBooks();
+
 
             if (orderType == true) //Buy
             {

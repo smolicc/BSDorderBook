@@ -7,9 +7,7 @@ using System;
 
 Console.WriteLine("Hello World!");
 
-var dr = new DataRepository("CryptoExchangesData.json", "OrderBooksData.json");
-
-List<string> response = new MatchOrdersService().MatchOrders(dr.LoadCryptoExchanges(), dr.LoadOrderBooks(), true, 3);
+List<string> response = new MatchOrdersService().MatchOrders(false, 3);
 
 foreach (string responseItem in response)
 {

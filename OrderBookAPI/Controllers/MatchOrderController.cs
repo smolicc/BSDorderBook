@@ -13,10 +13,16 @@ namespace OrderBookAPI.Controllers
         [HttpPost("buy/{amount}")]
         public IActionResult BuyOrder(decimal amount)
         {
-            //update paths
-            var dr = new DataRepository("CryptoExchangesData.json", "OrderBooksData.json");
+            List<string> response = new MatchOrdersService().MatchOrders(true, amount);
 
-            List<string> response = new MatchOrdersService().MatchOrders(dr.LoadCryptoExchanges(), dr.LoadOrderBooks(), true, amount);
+            //Temp response
+            return Ok(response[1]);
+        }
+
+        [HttpPost("sell/{amount}")]
+        public IActionResult SellOrder(decimal amount)
+        {
+            List<string> response = new MatchOrdersService().MatchOrders(false, amount);
 
             //Temp response
             return Ok(response[1]);
