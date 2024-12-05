@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSDorderBook", "BSDorderBoo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLibrary", "CoreLibrary\CoreLibrary.csproj", "{28742210-5D71-4C94-BB74-88CD17D92211}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBookAPI", "OrderBookAPI\OrderBookAPI.csproj", "{BEBB98E5-25A9-40A7-913A-D968AE970FE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{28742210-5D71-4C94-BB74-88CD17D92211}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28742210-5D71-4C94-BB74-88CD17D92211}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28742210-5D71-4C94-BB74-88CD17D92211}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEBB98E5-25A9-40A7-913A-D968AE970FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEBB98E5-25A9-40A7-913A-D968AE970FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEBB98E5-25A9-40A7-913A-D968AE970FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEBB98E5-25A9-40A7-913A-D968AE970FE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
