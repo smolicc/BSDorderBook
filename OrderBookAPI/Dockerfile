@@ -13,7 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["OrderBookAPI/OrderBookAPI.csproj", "OrderBookAPI/"]
-COPY ["../CoreLibrary/CoreLibrary.csproj", "CoreLibrary/"]
+COPY ["CoreLibrary/CoreLibrary.csproj", "CoreLibrary/"]
 RUN dotnet restore "OrderBookAPI/OrderBookAPI.csproj"
 COPY . .
 WORKDIR "/src/OrderBookAPI"
