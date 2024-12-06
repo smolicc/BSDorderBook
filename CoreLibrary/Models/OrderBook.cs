@@ -8,8 +8,8 @@ namespace CoreLibrary.Models
 {
     public class OrderBook
     {
-        public string AcqTime { get; set; }
-        public List<Bid> Bids { get; set; }
-        public List<Ask> Asks { get; set; }
+        public required string AcqTime { get; set; }
+        public required List<Bid> Bids { get; set; }
+        public required List<Ask> Asks { get; set; }
     }
 }

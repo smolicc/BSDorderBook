@@ -8,7 +8,7 @@ namespace CoreLibrary.Models
 {
     public class SortedOrder
     {
-        public string Exchange { get; set; }
-        public Order Order { get; set; }
+        public required string Exchange { get; set; }
+        public required Order Order { get; set; }
     }
 }

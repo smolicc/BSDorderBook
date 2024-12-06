@@ -9,6 +9,6 @@ namespace CoreLibrary.Services
 {
     public interface IMatchOrdersService
     {
-        Result MatchOrders(bool orderType, decimal targetAmount);
+        Result MatchOrders(List<CryptoExchange> cryptoExchanges, List<OrderBook> orderBooks, bool orderType, decimal targetAmount);
     }
 }

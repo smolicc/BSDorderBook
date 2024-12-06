@@ -10,36 +10,32 @@ namespace CoreLibrary.Services
 {
     public class MatchOrdersService : IMatchOrdersService
     {
-        public Result MatchOrders(bool orderType, decimal targetAmount)
+        public Result MatchOrders(List<CryptoExchange> cryptoExchanges, List<OrderBook> orderBooks, bool orderType, decimal targetAmount)
         {
-            Result result = new Result();
-            result.BestExecutionPlan = new List<SortedOrder>();
+            Result result = new()
+            {
+                BestExecutionPlan = [],
+                FinalResponse = ""
+            };
+
             decimal remainingAmount = targetAmount;
             decimal totalPrice = 0;
 
-            DataRepository dr = new DataRepository("CryptoExchangesData.json", "OrderBooksData.json");
-
-            List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
-            List<OrderBook> orderBooks = dr.LoadOrderBooks();
-
-
             if (orderType == true) //Buy
             {
-                List<SortedOrder> sortedAsks = orderBooks
+                List<SortedOrder> sortedAsks = [.. orderBooks
                     .SelectMany(book => book.Asks.Select(a => new SortedOrder
                     {
                         Exchange = book.AcqTime,
                         Order = a.Order
                     })) 
-                    .OrderBy(x => x.Order.Price)
-                    .ToList();
+                    .OrderBy(x => x.Order.Price)];
 
                 foreach (SortedOrder ask in sortedAsks)
                 {
                     if (remainingAmount == 0)
                     {
                         result.FinalResponse = $"Total for {targetAmount} BTC is: {totalPrice} EUR";
-                        //finalOrders.Add($"Total for {targetAmount} BTC is: {totalPrice} EUR");
                         break;
                     }
 
@@ -50,13 +46,14 @@ namespace CoreLibrary.Services
 
                     if (amountToBuy > 0)
                     {
-                        SortedOrder so = new SortedOrder();
-                        so.Exchange = ask.Exchange;
-                        so.Order = ask.Order;
+                        SortedOrder so = new()
+                        {
+                            Exchange = ask.Exchange,
+                            Order = ask.Order
+                        };
 
                         so.Order.Amount = amountToBuy;
                         result.BestExecutionPlan.Add(so);
-                        //finalOrders.Add($"Buy {amountToBuy} BTC at {ask.Order.Price} EUR from {ask.Exchange}");
                         
                         exchangeBalance.EURBalance -= amountToBuy * ask.Order.Price;
                         totalPrice += amountToBuy * ask.Order.Price;
@@ -66,21 +63,19 @@ namespace CoreLibrary.Services
             }
             else if (orderType == false) //Sell
             {
-                List<SortedOrder> sortedBids = orderBooks
-                    .SelectMany(book => book.Asks.Select(a => new SortedOrder
+                List<SortedOrder> sortedBids = [.. orderBooks
+                    .SelectMany(book => book.Bids.Select(a => new SortedOrder
                     {
                         Exchange = book.AcqTime,
                         Order = a.Order
                     }))
-                    .OrderByDescending(x => x.Order.Price)
-                    .ToList();
+                    .OrderByDescending(x => x.Order.Price)];
 
                 foreach (var bid in sortedBids)
                 {
                     if (remainingAmount == 0)
                     {
                         result.FinalResponse = $"Total for {targetAmount} BTC is: {totalPrice} EUR";
-                        //finalOrders.Add($"Total for {targetAmount} BTC is: {totalPrice} EUR");
                         break;
                     }
 
@@ -90,13 +85,14 @@ namespace CoreLibrary.Services
 
                     if (amountToSell > 0)
                     {
-                        SortedOrder so = new SortedOrder();
-                        so.Exchange = bid.Exchange;
-                        so.Order = bid.Order;
+                        SortedOrder so = new()
+                        {
+                            Exchange = bid.Exchange,
+                            Order = bid.Order
+                        };
 
                         so.Order.Amount = amountToSell;
                         result.BestExecutionPlan.Add(so);
-                        //finalOrders.Add($"Sell {amountToSell} BTC at {bid.Order.Price} EUR from {bid.Exchange}");
 
                         exchangeBalance.BTCBalance -= amountToSell;
                         totalPrice += amountToSell * bid.Order.Price;

@@ -7,7 +7,12 @@ using System;
 
 Console.WriteLine("Hello World!");
 
-Result response = new MatchOrdersService().MatchOrders(true, 2);
+DataRepository dr = new("CryptoExchangesData.json", "OrderBooksData.json");
+
+List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
+List<OrderBook> orderBooks = dr.LoadOrderBooks();
+
+Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, true, 2);
 
 foreach (SortedOrder result in response.BestExecutionPlan)
 {

@@ -8,6 +8,6 @@ namespace CoreLibrary.Models
 {
     public class Ask
     {
-        public Order Order { get; set; }
+        public required Order Order { get; set; }
     }
 }

@@ -10,8 +10,8 @@ namespace CoreLibrary.Models
     {
         public int? Id { get; set; }
         public DateTime Time { get; set; }
-        public string Type { get; set; }
-        public string Kind { get; set; }
+        public required string Type { get; set; }
+        public required string Kind { get; set; }
         public decimal Amount { get; set; }
         public decimal Price { get; set; }
     }

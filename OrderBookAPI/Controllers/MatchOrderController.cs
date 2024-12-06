@@ -10,10 +10,15 @@ namespace OrderBookAPI.Controllers
     [ApiController]
     public class MatchOrderController : ControllerBase
     {
+        readonly DataRepository dr = new("CryptoExchangesData.json", "OrderBooksData.json");
+
         [HttpPost("buy/{amount}")]
         public IActionResult BuyOrder(decimal amount)
         {
-            Result response = new MatchOrdersService().MatchOrders(true, amount);
+            List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
+            List<OrderBook> orderBooks = dr.LoadOrderBooks();
+
+            Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, true, amount);
 
             //Temp response
             return Ok(response);
@@ -22,8 +27,10 @@ namespace OrderBookAPI.Controllers
         [HttpPost("sell/{amount}")]
         public IActionResult SellOrder(decimal amount)
         {
-            Result response = new MatchOrdersService().MatchOrders(false, amount);
+            List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
+            List<OrderBook> orderBooks = dr.LoadOrderBooks();
 
+            Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, false, amount);
 
             //Temp response
             return Ok(response);
