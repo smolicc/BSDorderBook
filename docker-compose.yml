@@ -1,0 +1,10 @@
+services:
+  order-book-service:
+    hostname: order-book-service
+    image: order-book-service
+    build:
+      context: .
+      dockerfile: ./OrderBookAPI/Dockerfile
+    restart: on-failure
+    ports:
+      - "5000:8080"
