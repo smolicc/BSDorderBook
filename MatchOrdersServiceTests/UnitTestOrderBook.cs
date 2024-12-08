@@ -53,7 +53,7 @@ namespace MatchOrdersServiceTests
         public void TestBuyOrder()
         {
             var service = new MatchOrdersService();
-            Result result = service.MatchOrders(exchangeBalances, orderBooks, true, 1.5m);
+            Result result = service.MatchOrders(exchangeBalances, orderBooks, "buy", 1.5m);
 
 
             Assert.Equal(2, result.BestExecutionPlan.Count);
@@ -72,7 +72,7 @@ namespace MatchOrdersServiceTests
         public void TestSellOrder()
         {
             var service = new MatchOrdersService();
-            Result result = service.MatchOrders(exchangeBalances, orderBooks, false, 1.5m);
+            Result result = service.MatchOrders(exchangeBalances, orderBooks, "sell", 1.5m);
 
 
             Assert.Equal(2, result.BestExecutionPlan.Count);
@@ -91,7 +91,7 @@ namespace MatchOrdersServiceTests
         public void TestBuyOrder_LowEURBalance()
         {
             var service = new MatchOrdersService();
-            var result = service.MatchOrders(exchangeBalances, orderBooks, true, 3);
+            var result = service.MatchOrders(exchangeBalances, orderBooks, "buy", 3);
 
 
             Assert.Equal(3, result.BestExecutionPlan.Count);
@@ -108,7 +108,7 @@ namespace MatchOrdersServiceTests
         public void TestSellOrder_LowBTCBalance()
         {
             var service = new MatchOrdersService();
-            var result = service.MatchOrders(exchangeBalances, orderBooks, false, 4);
+            var result = service.MatchOrders(exchangeBalances, orderBooks, "sell", 4);
 
 
             Assert.Equal(2, result.BestExecutionPlan.Count);
@@ -129,7 +129,7 @@ namespace MatchOrdersServiceTests
             exchangeBalances[0].EURBalance = 5000;
             exchangeBalances[1].EURBalance = 10000;
 
-            var result = service.MatchOrders(exchangeBalances, orderBooks, true, 6);
+            var result = service.MatchOrders(exchangeBalances, orderBooks, "buy", 6);
 
 
             Assert.Equal("Out of orders", result.FinalResponse);
@@ -143,7 +143,7 @@ namespace MatchOrdersServiceTests
             exchangeBalances[0].BTCBalance = 5000;
             exchangeBalances[1].BTCBalance = 10000;
 
-            var result = service.MatchOrders(exchangeBalances, orderBooks, false, 6);
+            var result = service.MatchOrders(exchangeBalances, orderBooks, "sell", 6);
 
 
             Assert.Equal("Out of orders", result.FinalResponse);

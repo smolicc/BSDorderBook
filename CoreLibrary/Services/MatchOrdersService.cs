@@ -11,7 +11,7 @@ namespace CoreLibrary.Services
 {
     public class MatchOrdersService : IMatchOrdersService
     {
-        public Result MatchOrders(List<CryptoExchange> cryptoExchanges, List<OrderBook> orderBooks, bool orderType, decimal targetAmount)
+        public Result MatchOrders(List<CryptoExchange> cryptoExchanges, List<OrderBook> orderBooks, string orderType, decimal targetAmount)
         {
             Result result = new()
             {
@@ -22,7 +22,7 @@ namespace CoreLibrary.Services
             decimal remainingAmount = targetAmount;
             decimal totalPrice = 0;
 
-            if (orderType == true) //Buy
+            if (orderType == "buy") //Buy
             {
                 List<SortedOrder> sortedAsks = [.. orderBooks
                     .SelectMany(book => book.Asks.Select(a => new SortedOrder
@@ -79,7 +79,7 @@ namespace CoreLibrary.Services
                     }
                 }
             }
-            else if (orderType == false) //Sell
+            else if (orderType == "sell") //Sell
             {
                 List<SortedOrder> sortedBids = [.. orderBooks
                     .SelectMany(book => book.Bids.Select(a => new SortedOrder

@@ -18,7 +18,7 @@ namespace OrderBookAPI.Controllers
             List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
             List<OrderBook> orderBooks = dr.LoadOrderBooks();
 
-            Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, true, amount);
+            Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, "buy", amount);
 
             //Temp response
             return Ok(response);
@@ -30,7 +30,7 @@ namespace OrderBookAPI.Controllers
             List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
             List<OrderBook> orderBooks = dr.LoadOrderBooks();
 
-            Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, false, amount);
+            Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, "sell", amount);
 
             //Temp response
             return Ok(response);
