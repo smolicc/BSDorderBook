@@ -45,7 +45,7 @@ Solution gives the user the lowest possible purchase price for a certain amount 
 │   ├── Models/
 │   │   └── ... # Classes for objects used
 │   ├── Resources/
-│   │   └── ... # JSON files for crypto exchanges and order book
+│   │   └── ... # JSON files for crypto exchanges and order books
 │   └── Services/
 │       └── ... # Service interface and logic implementation
 ├── MatchOrdersServiceTests/
@@ -53,8 +53,8 @@ Solution gives the user the lowest possible purchase price for a certain amount 
 └── OrderBookAPI/
     ├── Controllers/
     │   └── MatchOrderController.cs # API controller
-    ├── Dockerfile # Dockerfile for building the service
-        └── Program.cs # Configuration for HTTP pipeline and routes
+    └── Dockerfile # Dockerfile for building the service
+    └── Program.cs # Configuration for HTTP pipeline and routes
 
 ```
 
