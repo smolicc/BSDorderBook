@@ -3,7 +3,7 @@ using CoreLibrary.Models;
 
 namespace MatchOrdersServiceTests
 {
-    public class UnitTest1
+    public class UnitTestOrderBook
     {
         private readonly List<OrderBook> orderBooks =
         [
@@ -40,7 +40,7 @@ namespace MatchOrdersServiceTests
             new() {
                 Id = "Exchange1",
                 EURBalance = 1650,
-                BTCBalance = 2
+                BTCBalance = 1
             },
             new() {
                 Id = "Exchange2",
@@ -55,6 +55,7 @@ namespace MatchOrdersServiceTests
             var service = new MatchOrdersService();
             Result result = service.MatchOrders(exchangeBalances, orderBooks, true, 1.5m);
 
+
             Assert.Equal(2, result.BestExecutionPlan.Count);
             Assert.Equal("Exchange1", result.BestExecutionPlan[0].Exchange);
             Assert.Equal(1100, result.BestExecutionPlan[0].Order.Price);
@@ -64,7 +65,7 @@ namespace MatchOrdersServiceTests
             Assert.Equal(1150, result.BestExecutionPlan[1].Order.Price);
             Assert.Equal(0.5m, result.BestExecutionPlan[1].Order.Amount);
 
-            Assert.Equal("Total for 1,5 BTC is: 1675,0 EUR", result.FinalResponse);
+            Assert.Equal("Total for 1,5 BTC is: 1675 EUR", result.FinalResponse);
         }
 
         [Fact]
@@ -72,6 +73,7 @@ namespace MatchOrdersServiceTests
         {
             var service = new MatchOrdersService();
             Result result = service.MatchOrders(exchangeBalances, orderBooks, false, 1.5m);
+
 
             Assert.Equal(2, result.BestExecutionPlan.Count);
             Assert.Equal("Exchange1", result.BestExecutionPlan[0].Exchange);
@@ -82,23 +84,7 @@ namespace MatchOrdersServiceTests
             Assert.Equal(950, result.BestExecutionPlan[1].Order.Price);
             Assert.Equal(0.5m, result.BestExecutionPlan[1].Order.Amount);
 
-            Assert.Equal("Total for 1,5 BTC is: 1475,0 EUR", result.FinalResponse);
-        }
-
-        [Fact]
-        public void TestSellOrder_LowBTCBalance()
-        {
-            var service = new MatchOrdersService();
-            var result = service.MatchOrders(exchangeBalances, orderBooks, false, 4);
-
-            Assert.Equal(3, result.BestExecutionPlan.Count);
-            Assert.Equal("Exchange1", result.BestExecutionPlan[0].Exchange);
-            Assert.Equal(1000, result.BestExecutionPlan[0].Order.Price);
-            Assert.Equal(1, result.BestExecutionPlan[0].Order.Amount);
-
-            Assert.Equal("Crypto exchange balance too low for remaining 1,5 BTC", result.FinalResponse);
-            Assert.Equal(950, result.BestExecutionPlan[1].Order.Price);
-            Assert.Equal(1, result.BestExecutionPlan[1].Order.Amount);
+            Assert.Equal("Total for 1,5 BTC is: 1475 EUR", result.FinalResponse);
         }
 
         [Fact]
@@ -107,14 +93,60 @@ namespace MatchOrdersServiceTests
             var service = new MatchOrdersService();
             var result = service.MatchOrders(exchangeBalances, orderBooks, true, 3);
 
+
             Assert.Equal(3, result.BestExecutionPlan.Count);
             Assert.Equal("Exchange1", result.BestExecutionPlan[0].Exchange);
             Assert.Equal(1100, result.BestExecutionPlan[0].Order.Price);
             Assert.Equal(1, result.BestExecutionPlan[0].Order.Amount);
 
-            Assert.Equal("Crypto exchange balance too low for remaining 0,2373188405797101449275362319 BTC", result.FinalResponse);
-            Assert.Equal(1.3043478260869565217391304348M, result.BestExecutionPlan[1].Order.Amount);
-            Assert.Equal(0.4583333333333333333333333333M, result.BestExecutionPlan[2].Order.Amount);
+            Assert.Equal("Crypto exchange EUR balance too low for remaining 0,23731885 BTC", result.FinalResponse);
+            Assert.Equal(1.30434782M, result.BestExecutionPlan[1].Order.Amount);
+            Assert.Equal(0.45833333M, result.BestExecutionPlan[2].Order.Amount);
+        }
+
+        [Fact]
+        public void TestSellOrder_LowBTCBalance()
+        {
+            var service = new MatchOrdersService();
+            var result = service.MatchOrders(exchangeBalances, orderBooks, false, 4);
+
+
+            Assert.Equal(2, result.BestExecutionPlan.Count);
+            Assert.Equal("Exchange1", result.BestExecutionPlan[0].Exchange);
+            Assert.Equal(1000, result.BestExecutionPlan[0].Order.Price);
+            Assert.Equal(1, result.BestExecutionPlan[0].Order.Amount);
+
+            Assert.Equal("Crypto exchange BTC balance too low for remaining 2 BTC", result.FinalResponse);
+            Assert.Equal(950, result.BestExecutionPlan[1].Order.Price);
+            Assert.Equal(1, result.BestExecutionPlan[1].Order.Amount);
+        }
+
+        [Fact]
+        public void TestBuyOrder_OutOfOrders()
+        {
+            var service = new MatchOrdersService();
+
+            exchangeBalances[0].EURBalance = 5000;
+            exchangeBalances[1].EURBalance = 10000;
+
+            var result = service.MatchOrders(exchangeBalances, orderBooks, true, 6);
+
+
+            Assert.Equal("Out of orders", result.FinalResponse);
+        }
+
+        [Fact]
+        public void TestSellOrder_OutOfOrders()
+        {
+            var service = new MatchOrdersService();
+
+            exchangeBalances[0].BTCBalance = 5000;
+            exchangeBalances[1].BTCBalance = 10000;
+
+            var result = service.MatchOrders(exchangeBalances, orderBooks, false, 6);
+
+
+            Assert.Equal("Out of orders", result.FinalResponse);
         }
     }
 }
