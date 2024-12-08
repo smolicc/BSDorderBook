@@ -22,7 +22,7 @@ namespace CoreLibrary.Services
             decimal remainingAmount = targetAmount;
             decimal totalPrice = 0;
 
-            if (orderType == "buy") //Buy
+            if (orderType == "buy")
             {
                 List<SortedOrder> sortedAsks = [.. orderBooks
                     .SelectMany(book => book.Asks.Select(a => new SortedOrder
@@ -79,7 +79,7 @@ namespace CoreLibrary.Services
                     }
                 }
             }
-            else if (orderType == "sell") //Sell
+            else if (orderType == "sell")
             {
                 List<SortedOrder> sortedBids = [.. orderBooks
                     .SelectMany(book => book.Bids.Select(a => new SortedOrder

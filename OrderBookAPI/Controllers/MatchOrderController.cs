@@ -15,25 +15,43 @@ namespace OrderBookAPI.Controllers
         [HttpPost("buy/{amount}")]
         public IActionResult BuyOrder(decimal amount)
         {
-            List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
-            List<OrderBook> orderBooks = dr.LoadOrderBooks();
+            if (amount <= 0)
+                return BadRequest(new { Message = "Amount must be greater than zero." });
 
-            Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, "buy", amount);
+            try
+            {
+                List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
+                List<OrderBook> orderBooks = dr.LoadOrderBooks();
 
-            //Temp response
-            return Ok(response);
+                Result result = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, "buy", amount);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing the request.", Details = ex.Message });
+            }
         }
 
         [HttpPost("sell/{amount}")]
         public IActionResult SellOrder(decimal amount)
         {
-            List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
-            List<OrderBook> orderBooks = dr.LoadOrderBooks();
+            if (amount <= 0)
+                return BadRequest(new { Message = "Amount must be greater than zero." });
 
-            Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, "sell", amount);
+            try
+            {
+                List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
+                List<OrderBook> orderBooks = dr.LoadOrderBooks();
 
-            //Temp response
-            return Ok(response);
+                Result result = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, "sell", amount);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing the request.", Details = ex.Message });
+            }
         }
     }
 }

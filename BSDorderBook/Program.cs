@@ -39,14 +39,14 @@ while (true)
     List<CryptoExchange> cryptoExchanges = dr.LoadCryptoExchanges();
     List<OrderBook> orderBooks = dr.LoadOrderBooks();
 
-    Result response = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, orderType, amount);
+    Result result = new MatchOrdersService().MatchOrders(cryptoExchanges, orderBooks, orderType, amount);
 
-    foreach (SortedOrder result in response.BestExecutionPlan)
+    foreach (SortedOrder order in result.BestExecutionPlan)
     {
-        if (result.Order.Type == "Sell")
-            Console.WriteLine("Buy " + result.Order.Amount + " BTC at " + result.Order.Price + " EUR from " + result.Exchange);
-        else if (result.Order.Type == "Buy")
-            Console.WriteLine("Sell " + result.Order.Amount + " BTC at " + result.Order.Price + " EUR from " + result.Exchange);
+        if (order.Order.Type == "Sell")
+            Console.WriteLine("Buy " + order.Order.Amount + " BTC at " + order.Order.Price + " EUR from " + order.Exchange);
+        else if (order.Order.Type == "Buy")
+            Console.WriteLine("Sell " + order.Order.Amount + " BTC at " + order.Order.Price + " EUR from " + order.Exchange);
     }
-    Console.WriteLine(response.FinalResponse);
+    Console.WriteLine(result.FinalResponse);
 }
